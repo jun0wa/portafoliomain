@@ -23,12 +23,29 @@ export default function Avatar({ active, onToggle, ...props }) {
   // 2) Los clips de Mixamo se llaman igual ("mixamo.com"): los renombramos.
   //    Funciona porque ambos comparten el mismo esqueleto (mixamorig...).
   const clips = useMemo(() => {
-    const idle = idleFbx.animations[0].clone()
-    idle.name = 'idle'
-    const wave = waveFbx.animations[0].clone()
-    wave.name = 'wave'
-    return [idle, wave]
+    const make = (fbx, name, file) => {
+      const clip = fbx.animations[0]
+      if (!clip) {
+        console.warn(`${file} no trae animación (descárgalo de Mixamo con una animación aplicada)`)
+        return null
+      }
+      const copy = clip.clone()
+      copy.name = name
+      return copy
+    }
+    return [
+      make(idleFbx, 'idle', 'idle.fbx'),
+      make(waveFbx, 'wave', 'waving.fbx'),
+    ].filter(Boolean)
   }, [idleFbx, waveFbx])
+
+  // Los modelos de Mixamo a veces "desaparecen" porque Three.js calcula su
+  // caja de visibilidad con la pose original; se desactiva ese recorte.
+  useEffect(() => {
+    idleFbx.traverse((o) => {
+      if (o.isMesh) o.frustumCulled = false
+    })
+  }, [idleFbx])
 
   // 3) Un mixer con ambas acciones
   const { actions, mixer } = useAnimations(clips, group)

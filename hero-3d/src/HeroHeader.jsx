@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useState } from 'react'
+import { Component, Suspense, useEffect, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Sparkles, useProgress } from '@react-three/drei'
 import Avatar from './Avatar'
@@ -9,6 +9,21 @@ const shapes = [
   { position: [-1.2, -0.8, 0], color: '#a78bfa' },
   { position: [0.2, 1.3, -1.5], color: '#34d399' },
 ]
+
+// Si el modelo falla al cargar, solo se oculta el avatar (el resto del header
+// sigue visible) y el motivo se muestra en la consola del navegador (F12).
+class ModelBoundary extends Component {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  componentDidCatch(error) {
+    console.error('No se pudo cargar el modelo 3D:', error)
+  }
+  render() {
+    return this.state.failed ? null : this.props.children
+  }
+}
 
 // true cuando la pantalla es < 768px (breakpoint "md" de Bootstrap)
 function useIsMobile() {
@@ -53,13 +68,15 @@ export default function HeroHeader() {
             color={active ? '#f59e0b' : '#38bdf8'}
           />
 
-          <Suspense fallback={null}>
-            <Avatar
-              position={mobile ? [0, -1.9, 0] : [1.6, -1.0, 0]}
-              active={active}
-              onToggle={() => setActive((a) => !a)}
-            />
-          </Suspense>
+          <ModelBoundary>
+            <Suspense fallback={null}>
+              <Avatar
+                position={mobile ? [0, -1.9, 0] : [1.6, -1.0, 0]}
+                active={active}
+                onToggle={() => setActive((a) => !a)}
+              />
+            </Suspense>
+          </ModelBoundary>
 
           {shapes.map((s, i) => (
             <FloatingShape key={i} {...s} active={active} />
