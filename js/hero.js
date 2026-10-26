@@ -44981,14 +44981,14 @@ function CB() {
           style: { zIndex: 10 },
           children: /* @__PURE__ */ Wt.jsxs("div", { className: "container px-5", children: [
             /* @__PURE__ */ Wt.jsx("p", { className: "fs-5 text-info mb-1", children: "Hi, I'm" }),
-            /* @__PURE__ */ Wt.jsx("h1", { className: "display-3 fw-bold text-white mb-2", children: "Kelly Marin" }),
+            /* @__PURE__ */ Wt.jsx("h1", { className: "display-3 fw-bold text-white mb-2", children: "Juan Esteban Castro" }),
             /* @__PURE__ */ Wt.jsx("p", { className: "fs-4 text-white-50 mb-4 col-md-6", children: "Multimedia Engineering student. Front-end and 3D for the web." }),
             /* @__PURE__ */ Wt.jsxs("div", { className: "d-flex flex-wrap gap-3", children: [
               /* @__PURE__ */ Wt.jsx("a", { href: "#modules", className: "btn btn-primary btn-lg rounded-pill pe-auto", children: "View projects" }),
               /* @__PURE__ */ Wt.jsx(
                 "a",
                 {
-                  href: "https://github.com/tu-usuario",
+                  href: "https://github.com/jun0wa",
                   target: "_blank",
                   rel: "noreferrer",
                   className: "btn btn-outline-light btn-lg rounded-pill pe-auto",
@@ -44996,7 +44996,7 @@ function CB() {
                 }
               )
             ] }),
-            /* @__PURE__ */ Wt.jsx("p", { className: "small text-white-50 mt-4 mb-0 d-none d-md-block", children: "Click the avatar to say hi." })
+            /* @__PURE__ */ Wt.jsx("p", { className: "small text-white-50 mt-4 mb-0 d-none d-md-block", children: "Click the avatar to make it dance." })
           ] })
         }
       )
